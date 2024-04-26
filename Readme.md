@@ -89,11 +89,6 @@ So we write code to test if the vector store has already been created, and only 
         
         docsearch = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db")
 
-### Running the Notebook Code from Docker
-
-docker build -t ragnotebook .
-docker run --env-file .env -p 5002:5000 ragnotebook
-
 ## Refactoring the Notebook to Handle Additional Questions
 
 A Jupyter Notebook typically answers one question, in this case the hard-coded question is "What did the president say about Ketanji Brown Jackson".
@@ -115,6 +110,11 @@ We can create a service that can answer other questions based on the knowledge t
 
     if __name__ == "__main__":
         app.run()
+
+### Running the Notebook Code from Docker
+
+    docker build -t ragnotebook .
+    docker run --env-file .env -p 5002:5000 ragnotebook
 
 Now we can ask additional questions based on the knowledge text.
 
