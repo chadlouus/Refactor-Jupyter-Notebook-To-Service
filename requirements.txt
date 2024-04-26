@@ -1,0 +1,8 @@
+Flask==2.0.3
+Werkzeug==2.2.2
+langchain==0.0.345
+chromadb==0.3.26
+ibm-watson-machine-learning>=1.0.335
+pydantic==1.10.0
+tqdm
+sentence-transformers==2.7.0
