@@ -1,6 +1,6 @@
 # Converting a Jupyter Notebook to a Service
-## Existing Jupyter Notebook using WatsonX, Chroma and LangChain
-IBM WatsonX provides a Jupyter Notebook illustrating how to do Retrieval Augmented Generation using Chroma, LLM and Langchain.
+## Existing Jupyter Notebook using WatsonX, Chroma and LangChain for RAG
+IBM WatsonX provides a [Jupyter Notebook illustrating how to do Retrieval Augmented Generation](./Use%20watsonx,%20Chroma,%20and%20LangChain%20to%20answer%20quest.ipynb) using Chroma, LLM and Langchain.
 
 The Jupyter Notebook requires specific Python libraries at particular versions, in order to avoid module conflicts. When running the Notebook, it is recommended to start with a fresh Python environment. If you have other versions of Python, or other versions of the required modules already in your running environment, then it is likely that the Notebook could fail.
 
