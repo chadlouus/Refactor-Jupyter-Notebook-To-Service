@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 
-
+print("start loading embeddings")
 embeddings = HuggingFaceEmbeddings()
 #docsearch = Chroma.from_documents(texts, embeddings)
 if os.path.isdir("./chroma_db"):
@@ -70,6 +70,9 @@ query = "What did the president say about Ketanji Brown Jackson"
 answer = qa.run(query)
 print("answer", answer)
 
+if not os.getenv("SERVER"):
+    exit()
+
 from flask import Flask, request
 
 app = Flask(__name__)
@@ -84,4 +87,4 @@ def hello_world():
     return answer
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host='0.0.0.0')

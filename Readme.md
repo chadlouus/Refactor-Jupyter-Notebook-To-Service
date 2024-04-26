@@ -114,7 +114,7 @@ We can create a service that can answer other questions based on the knowledge t
 ### Running the Notebook Code from Docker
 
     docker build -t ragnotebook .
-    docker run --env-file .env -p 5002:5000 ragnotebook
+    docker run --name ragnotebook --env-file .env -p 5002:5000 ragnotebook
 
 Now we can ask additional questions based on the knowledge text.
 
