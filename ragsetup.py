@@ -78,7 +78,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
-def hello_world():
+def handle_question():
     question = request.args.get('q', query)
     if not question:
         return "/?q=question"

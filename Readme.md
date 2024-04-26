@@ -43,7 +43,7 @@ It is a good practice to run `python3` interactively and paste in the code, to m
 
 Create a .env file with the keys. (The values below are simulated)
 
-    API_KEY=Nf_8CZvwhoysVEBL2NbQDHKbUNAg-SVgkjWIln_XnrQe
+    IC_API_KEY=Nf_8CZvwhoysVEBL2NbQDHKbUNAg-SVgkjWIln_XnrQe
     WATSON_PROJECT_ID=7708b8af-9fc9-4e39-b158-fb5c74bd69a3
 
 ## Create a Docker Image
@@ -100,7 +100,7 @@ We can create a service that can answer other questions based on the knowledge t
     app = Flask(__name__)
 
     @app.route("/", methods=['GET'])
-    def hello_world():
+    def handle_question():
         question = request.args.get('q', query)
         if not question:
             return "/?q=question"

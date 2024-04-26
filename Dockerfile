@@ -11,8 +11,8 @@ RUN \
     pip install --upgrade pip && \
     pip install -r requirements.txt && \
     python3 -c 'from langchain.embeddings import HuggingFaceEmbeddings;HuggingFaceEmbeddings()' && \
-    echo "initializing VectorStore and preprocessing" && \
-    python3 ragsetup.py && \
+    #echo "initializing VectorStore and preprocessing" && \
+    #python3 ragsetup.py && \
     echo "done installing"
 # Set the environment variable
 
