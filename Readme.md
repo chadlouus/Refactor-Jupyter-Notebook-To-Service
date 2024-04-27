@@ -89,7 +89,7 @@ So we write code to test if the vector store has already been created, and only 
         
         docsearch = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db")
 
-## Refactoring the Notebook to Handle Additional Questions
+## Creating a Web Server for Interacting with RAG 
 
 A Jupyter Notebook typically answers one question, in this case the hard-coded question is "What did the president say about Ketanji Brown Jackson".
 
@@ -116,9 +116,15 @@ We can create a service that can answer other questions based on the knowledge t
     docker build -t ragnotebook .
     docker run --name ragnotebook --env-file .env -p 5002:5000 ragnotebook
 
+Please note that the Docker build process can take over 10 minutes. And the image can be quite big, but it contains the same Python modules that need to be installed when running the original Jupyter Notebook.
+
 Now we can ask additional questions based on the knowledge text.
 
 curl "http://localhost:5002/?q=what+is+the+topic+about"
+
+### Running as a Server
+
+The docker image can be uploaded to a docker repository such as IBM Container Registry and deployed to Code Engine. Please note that sufficient memory needs to be allocated for the Code Engine application.
 
 
 
