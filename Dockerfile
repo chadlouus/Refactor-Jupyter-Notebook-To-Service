@@ -11,9 +11,8 @@ RUN \
     pip install --upgrade pip && \
     pip install -r requirements.txt && \
     python3 -c 'from langchain.embeddings import HuggingFaceEmbeddings;HuggingFaceEmbeddings()' && \
-    #echo "initializing VectorStore and preprocessing" && \
-    #python3 ragsetup.py && \
-    echo "done installing"
-# Set the environment variable
+    echo "initializing VectorStore and preprocessing" && \
+    export SETUP_ONLY=true && python3 ragsetup.py && \
+    echo "done installing, writing docker image - can take a few more minutes"
 
-CMD ["sh", "-c", "export SERVER=true && python3 ragsetup.py"]
+CMD ["sh", "-c", "python3 ragsetup.py"]

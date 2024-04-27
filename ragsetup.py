@@ -12,7 +12,6 @@ load_dotenv()  # take environment variables from .env.
 
 print("start loading embeddings")
 embeddings = HuggingFaceEmbeddings()
-#docsearch = Chroma.from_documents(texts, embeddings)
 if os.path.isdir("./chroma_db"):
     print("chroma db already exists - 1sec")
     docsearch = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
@@ -28,6 +27,9 @@ else:
     
     docsearch = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db")
 
+# for fast server startup when building a Docker image
+if os.getenv("SETUP_ONLY"):
+    exit()
 
 credentials = {
     "url": "https://us-south.ml.cloud.ibm.com",
@@ -70,18 +72,16 @@ query = "What did the president say about Ketanji Brown Jackson"
 answer = qa.run(query)
 print("answer", answer)
 
-if not os.getenv("SERVER"):
-    exit()
-
 from flask import Flask, request
 
 app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
 def handle_question():
-    question = request.args.get('q', query)
+    question = request.args.get('q')
     if not question:
-        return "/?q=question"
+        return "Usage:\n" + request.host_url + "?q=question\ne.g. " + \
+        request.host_url + "?q=" + query.replace(" ", "+")
 
     answer = qa.run(question)
     return answer

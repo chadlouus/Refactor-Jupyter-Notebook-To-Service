@@ -70,7 +70,7 @@ For running the Notebook code, we can just run
 
 The process of creating the vectore store takes quite some time. During this process, the knowledge text is converted into vectors. This process takes about 9 seconds.
 
-If the vector store is already created on disk, then loading it only takes 1 second.
+If the vector store is already created on disk, then loading the vector store only takes 1 second.
 
 So we write code to test if the vector store has already been created, and only create it if it has not been created.
 
@@ -89,6 +89,8 @@ So we write code to test if the vector store has already been created, and only 
         
         docsearch = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db")
 
+> Note that we create the vector store during Docker image build, so that when the docker image is run, the vector store is already created, and just needs to be loaded.
+
 ## Creating a Web Server for Interacting with RAG 
 
 A Jupyter Notebook typically answers one question, in this case the hard-coded question is "What did the president say about Ketanji Brown Jackson".
@@ -101,7 +103,7 @@ We can create a service that can answer other questions based on the knowledge t
 
     @app.route("/", methods=['GET'])
     def handle_question():
-        question = request.args.get('q', query)
+        question = request.args.get('q')
         if not question:
             return "/?q=question"
 
@@ -116,7 +118,7 @@ We can create a service that can answer other questions based on the knowledge t
     docker build -t ragnotebook .
     docker run --name ragnotebook --env-file .env -p 5002:5000 ragnotebook
 
-Please note that the Docker build process can take over 10 minutes. And the image can be quite big, but it contains the same Python modules that need to be installed when running the original Jupyter Notebook.
+> Note that the Docker build process can take over 10 minutes. And the image can be quite big, but it contains the same Python modules that need to be installed when running the original Jupyter Notebook.
 
 Now we can ask additional questions based on the knowledge text.
 
